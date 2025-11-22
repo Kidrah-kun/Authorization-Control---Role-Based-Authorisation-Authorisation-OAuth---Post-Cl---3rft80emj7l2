@@ -1,9 +1,9 @@
-const { findVisitor, findEditor, findAdmin } = require("./services");
+const { findUser,findVisitor, findEditor, findAdmin } = require("./services");
 
 const getVisitor = async (req, res) => {
   try {
     const id = req.params.id;
-    const user = await findVisitor(Number(id));
+    const user = await findUser(Number(id));
     return res.status(200).json({ data: user });
   } catch (err) {
     console.log(err);
@@ -14,7 +14,7 @@ const getVisitor = async (req, res) => {
 const getEditor = async (req, res) => {
   try {
     const id = req.params.id;
-    const user = await findEditor(Number(id));
+    const user = await findEditor(Number(id)) || await findAdmin(Number(id));
     return res.status(200).json({ data: user });
   } catch (err) {
     console.log(err);
